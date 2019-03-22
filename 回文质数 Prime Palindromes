@@ -1,0 +1,68 @@
+#include<iostream>
+#include<cstdio>
+#include<cmath>
+#define LL long long
+using namespace std;
+LL start,endd;
+int a[10];
+//判断是否为素数
+bool IsPrime(int x){
+	for(int i=2;i<=sqrt(x);i++){
+		if(x%i==0)return false;
+	}
+return true;	
+}
+//计算起点和终点的位数
+int WeiShu(LL x){
+LL temp=x;
+int weishu=0;
+	while(temp>=1){
+	    temp/=10;	
+		weishu++;
+	}
+	return weishu;
+}
+//创造回文数
+void CreatPdm(int x,int k){//x为当前位置，k为所需要的位置
+   if((k%2==0&&x==k/2)||(k%2!=0&&x==(k+1)/2+1)){
+   	for(int i=k;i>=x;i--)
+   	a[i]=a[k+1-i];
+   	LL shu=0;
+   	for(int jj=1;jj<=k;jj++){
+	   	shu=shu*10+a[jj];
+	   }
+	  if(IsPrime(shu)&&shu<=endd&&shu>=start) cout<<shu<<endl;
+	   return;
+   }
+   else{
+   	for(int j=0;j<=9;j++){
+	   	if(x==1&&j==0)continue;
+		   a[x]=j;
+	   	CreatPdm(x+1,k);
+	   }
+   }	
+}
+
+int main(){
+   cin>>start>>endd; 	
+       if (endd>=10000000)
+        endd=9999999;
+  int aa=WeiShu(start),bb=WeiShu(endd);	
+   for(int i=aa;i<=bb;i++){
+   	 if(i==1){
+	   	if(start<=5&&5<=endd)cout<<"5"<<endl;
+	   	if(start<=7&&7<=endd)cout<<"7"<<endl;
+	    }
+     else if(i==2){
+      	if(start<=11&&11<=endd)cout<<"11"<<endl;
+      }
+      else if(i==10)break;
+	  else{
+  		CreatPdm(1,i);
+  	}
+  	
+   }
+ 	
+ 	
+ 	return 0;
+ }
