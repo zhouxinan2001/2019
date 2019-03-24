@@ -1,0 +1,35 @@
+#include<iostream>
+#include<cstring>
+#include<cstdio>
+#define LL long long
+using namespace std;
+struct Node{
+	char name[10];
+	int num;
+}player[10005];
+	
+int main(){
+	int n;
+	double sum=0;
+	cin>>n;
+	
+	for(int i=0;i<n;i++){
+		scanf("%s %d",&player[i].name,&player[i].num);
+		sum+=player[i].num;		
+	}
+	sum/=n;
+	sum/=2;
+	Node ans;
+	int maxn=9999999;
+	for(int i=0;i<n;i++){
+		int temp=player[i].num-sum;
+		if(temp<=0)temp=-temp;
+		if(temp<maxn){
+			maxn=temp;
+			strcpy(ans.name,player[i].name);
+			ans.num=player[i].num;
+		}
+	}
+		printf("%d %s",(int)sum,ans.name);
+	return 0;
+}
