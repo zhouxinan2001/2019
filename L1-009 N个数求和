@@ -1,0 +1,90 @@
+#include<iostream>
+#include<cstdio>
+using namespace std;
+int gcd(int a,int b){
+    int r;
+    while(b>0){
+        r=a%b;
+        a=b;
+        b=r;
+    }
+    return a;
+}
+int main(){
+	int n,x,y,nu,de;
+	cin>>n;
+	for(int i=0;i<n;i++){
+	scanf("%d/%d",&x,&y);
+	int t,tt;
+	if(x<0&&y>0){
+    	x=-x;
+    	t=gcd(x,y);
+    	x/=t;
+        y/=t;
+    	x=-x;
+	}
+	else if(y<0&&x>0){
+	     y=-y;
+	     t=gcd(x,y);
+	     x/=t;
+	     y/=t;
+         y=-y;
+	}
+    else if(x<0&&y<0){
+    	x=-x,y=-y;
+    	t=gcd(x,y);
+   		x/=t;
+		y/=t;
+    }
+	else {
+		t=gcd(x,y);
+		x/=t;
+		y/=t;
+	}
+
+	     
+	if(i==0){
+		nu=x;
+		de=y;
+	}     
+	else{
+		nu=x*de+nu*y;
+		de*=y;	
+	}
+	
+	if(nu<0&&de>0){
+    	nu=-nu;
+    	t=gcd(nu,de);
+    	nu/=t;
+        de/=t;;
+    	nu=-nu;
+	}
+	else if(de<0&&nu>0){
+	     de=-de;
+     	 t=gcd(nu,de);
+	     nu/=t;
+         de/=t;
+         de=-de;
+	}
+    else if(nu<0&&de<0){
+    	nu=-nu,de=-de;
+   		t=gcd(nu,de);
+   		nu/=t;
+        de/=t;
+    }
+	else {
+		t=gcd(nu,de);
+		nu/=t;
+        de/=t;
+	}
+ }
+ int a,b,c;
+ a=nu/de;
+ b=nu%de;
+ c=de;
+ if(a!=0&&b==0)printf("%d\n",a);
+ else if(b!=0&&a==0)printf("%d/%d\n",b,c);
+ else if(a==0&&b==0)printf("0\n");
+ else printf("%d %d/%d",a,b,c);
+	return 0;
+}
