@@ -1,0 +1,50 @@
+#include <iostream>
+#include <cstdio>
+#include <cstdlib>
+#include <algorithm>
+#include <cstring>
+using namespace std;
+const int inf = 0x3f3f3f3f;//最大路径
+int mpt[1005][1005];
+int vis[1005]={0};
+int dis[1005];
+int dijkstra(int n){
+  for(int i=1;i<=n;i++){
+    dis[i]=mpt[1][i];
+  }
+  int minn,v;
+  for(int i=1;i<=n;i++){
+    minn=inf;
+    for(int j=1;j<=n;j++){
+        if(!vis[j]&&dis[j]<minn){
+            minn=dis[j];
+            v=j;
+        }
+    }
+    vis[v]=1;
+    for(int j=1;j<=n;j++){
+        if(mpt[v][j]+dis[v]<dis[j])
+            dis[j]=mpt[v][j]+dis[v];
+    }
+  }
+return dis[n];
+}
+
+int main(){
+    int t,n;
+    int u,v,len;
+    while(~scanf("%d%d",&t,&n)){
+    for(int i=1;i<=n;i++){
+        for(int j=1;j<=n;j++){
+            if(i==j)mpt[i][j]=0;
+            else mpt[i][j]=mpt[j][i]=inf;
+        }
+    }
+    for(int i=1;i<=t;i++){
+        scanf("%d%d%d",&u,&v,&len);
+        if(mpt[u][v]>len)mpt[u][v]=mpt[v][u]=len;
+    }
+        printf("%d\n",dijkstra(n));
+        }
+    return 0;
+}
