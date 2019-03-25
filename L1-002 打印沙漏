@@ -1,0 +1,34 @@
+#include<bits/stdc++.h>
+ using namespace std;
+ int num[25]={0};
+ int main(){
+ int n,i;
+ char a;
+ scanf("%d %c",&n,&a);
+ for(i=1;i<25;i++){
+    num[i]=2*i*i-1;
+    if(n<num[i]&&n>num[i+1])
+    break;
+ }
+ i--;
+int ans=n-num[i];
+ for(int j=1;j<=i;j++){
+    for(int k=1;k<i*2;k++){
+        if(k<=j-1)printf(" ");
+        else if(k>2*i-j)break;
+        else printf("%c",a);
+    }
+    printf("\n");
+ }
+ for(int j=i-1;j>0;j--){
+    for(int k=1;k<i*2;k++){
+        if(k<=j-1)printf(" ");
+        else if(k>2*i-j)break;
+        else printf("%c",a);
+    }
+    printf("\n");
+ }
+if(ans)
+cout<<ans<<endl;
+ return 0;
+ }
