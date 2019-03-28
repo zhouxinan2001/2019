@@ -1,0 +1,84 @@
+#include<bits/stdc++.h>
+using namespace std;
+const int inf=0x3f3f3f3f;
+int mpt[550][550];
+int dis[550];
+int vis[550];
+int team[550];//每点的数量
+int path[550];//前驱
+int cnt[550];//路径数量
+int sum[550];//最大救援队
+int n,m,s,d;
+void PrintfPath(int t){
+  if(path[t]!=-1){
+    PrintfPath(path[t]);
+    printf("%d ",path[t]);
+  }
+}
+
+int main(){
+cin>>n>>m>>s>>d;
+int i,j;
+for(i=0;i<n;i++){
+    scanf("%d",&team[i]);
+}
+
+for(i=0;i<n;i++){
+    for(int j=0;j<n;j++){
+        if(i==j)mpt[i][j]=0;
+        else mpt[i][j]=inf;
+    }
+}
+
+int x,y,len;
+for(i=0;i<m;i++){
+    scanf("%d %d %d",&x,&y,&len);
+    mpt[x][y]=len;
+    mpt[y][x]=len;
+}
+
+for(i=0;i<n;i++){
+   dis[i] = inf;
+   //dis[i]=mpt[s][i];
+    path[i]=-1;
+    sum[i]=0;
+    vis[i]=0;
+    cnt[i]=0;
+}
+dis[s]=0;
+vis[s]=1;
+cnt[s]=1;
+sum[s]=team[s];
+for(int i=0;i<n;i++){
+    int minn=inf,v=s;
+    for(int j=0;j<n;j++){
+       if(!vis[j]&&dis[j]<minn){
+            minn=dis[j];
+            v=j;
+         }
+    }
+    vis[v]=1;
+    for(int j=0;j<n;j++){
+        if(vis[j]==0){
+          if(mpt[v][j]+dis[v]<dis[j]){
+             dis[j]=mpt[v][j]+dis[v];
+             path[j]=v;
+             sum[j]=sum[v]+team[j];
+             cnt[j]=cnt[v];
+          }
+          else if(mpt[v][j]+dis[v]==dis[j]){
+             cnt[j]=cnt[j]+cnt[v];
+             if(sum[j]<sum[v]+team[j]){
+                 path[j]=v;
+                 sum[j]=sum[v]+team[j];
+             }
+          }
+        }
+     }
+}
+cout<<cnt[d]<<' '<<sum[d]<<endl;
+
+PrintfPath(d);
+printf("%d\n",d);
+return 0;
+}
