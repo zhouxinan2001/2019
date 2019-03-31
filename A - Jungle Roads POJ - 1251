@@ -1,0 +1,53 @@
+#include<iostream>
+#include<cstdio>
+#include<cstring>
+#include<algorithm>
+#define LL long long
+using namespace std;
+
+struct Edge {
+	int u, v, w;
+}edge[400];
+int fa[30];
+bool cmp(Edge a,Edge b){
+return a.w<b.w;
+}
+int findd(int h){
+    if (fa[h] != h)
+        return fa[h] = findd(fa[h]) ;
+    return h ;
+}//并查集判断是否联通
+int main(){
+int N;
+while(cin>>N&&N){
+ for(int i=0;i<N;i++)
+        fa[i]=i;
+ int top=0;
+ for(int i=1;i<N;i++){
+    char st;
+    int k;
+    cin>>st>>k;
+    while(k--){
+        char endd;
+        int len;
+        cin>>endd>>len;
+        edge[top].u=st-'A';
+        edge[top].v=endd-'A';
+        edge[top++].w=len;
+    }
+ }
+    sort(edge,edge+top,cmp);
+    LL sum=0;
+    for(int i=0;i<top;i++){
+        int fu = findd(edge[i].u);
+			int fv = findd(edge[i].v);
+			if (fu != fv) {
+				fa[fu] = fv;
+				sum += edge[i].w;
+			}
+    }
+    cout<<sum<<endl;
+
+}
+return 0;
+}
