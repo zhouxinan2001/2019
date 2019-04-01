@@ -1,0 +1,34 @@
+#include<cstdio>
+#include<iostream>
+#include<cstring>
+#include<algorithm>
+#include<string>
+#define LL long long
+using namespace std;
+char mpt[1005][1005];
+bool vis[1005][1005]={0};
+
+int main(){
+int n,m,x,y;
+while(cin>>n>>m>>x>>y){
+
+for(int i=0;i<n;i++){
+	getchar();
+    for(int j=0;j<m;j++){
+        scanf("%c",&mpt[i][j]);
+    }
+}
+int flag=1;
+while(flag){
+    vis[x][y]=true;
+    if(mpt[x][y]=='N')x--;
+    else if(mpt[x][y]=='S')x++;
+    else if(mpt[x][y]=='W')y--;
+    else if(mpt[x][y]=='E')y++;
+    if(vis[x][y])flag=0;
+    else if(x<0||x>=n||y<0||y>=m)break;
+}
+if(flag)printf("%d %d\n",x,y);
+else printf("Never!\n");}
+return 0;
+}
