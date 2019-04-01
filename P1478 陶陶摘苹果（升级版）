@@ -1,0 +1,22 @@
+#include<bits/stdc++.h>
+#define LL long long
+using namespace std;
+int n,s,a,b;
+int ans=0;
+int dp[5005][1005];
+int x[5005],y[5005];
+int main(){
+cin>>n>>s>>a>>b;
+for(int i=1;i<=n;i++){
+    scanf("%d %d",&x[i],&y[i]);
+}
+for(int i=1;i<=n;i++){
+  for(int j=0;j<=s;j++){
+     dp[i][j]=dp[i-1][j];
+     if(x[i]<=a+b&&j>=y[i])
+        dp[i][j]=max(dp[i-1][j-y[i]]+1,dp[i][j]);
+  }
+}
+cout<<dp[n][s]<<endl;
+return 0;
+}
