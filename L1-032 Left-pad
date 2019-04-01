@@ -1,0 +1,25 @@
+#include<bits/stdc++.h>
+#define LL long long
+using namespace std;
+string str;
+int main(){
+int num;
+char ch;
+cin>>num;
+cin>>ch;
+getchar();
+getline(cin,str);
+int len=str.size();
+if(len<num){
+    for(int i=0;i<num-len;i++)
+        printf("%c",ch);
+     cout<<str<<endl;
+}
+else{
+    for(int i=len-num;i<str.size();i++){
+        cout<<str[i];
+    }
+    cout<<endl;
+}
+return 0;
+}
