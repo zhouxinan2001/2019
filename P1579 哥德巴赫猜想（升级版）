@@ -1,0 +1,43 @@
+#include<cstdio>
+#include<algorithm>
+#include<cstring>
+#include<iostream>
+using namespace std;
+const int maxn=20000;
+bool number[maxn+5];
+int prime[maxn+5];
+int main(){
+int n;
+cin>>n;
+//打表
+    int i,j,c=0;
+    memset(number,true,sizeof(number));
+    for(i=2;i<=n;i++)
+    {
+        if(number[i])
+            prime[c++]=i;
+        for(j=0;j<c&&prime[j]*i<=n;j++)
+        {
+            number[prime[j]*i]=false;
+            if(i%prime[j]==0) //保证每个合数只会被它的最小质因数筛去，因此每个数只会被标记一次
+                break;
+        }
+    }
+//输出
+int ans,ans1,ans2,flag=0;
+for(int i=2;i<=n;i++){
+ if(!number[i])continue;
+ ans=i;
+ for(int j=i;j<=n;j++){
+    if(!number[j])continue;
+    ans1=j,ans2=n-i-j;
+    if(!ans2)continue;
+    if(!number[ans2])continue;
+    cout<<ans<<' '<<ans1<<' '<<ans2<<endl;
+    flag=1;
+     if(flag==1)break;
+ }
+ if(flag==1)break;
+}
+return 0;
+}
