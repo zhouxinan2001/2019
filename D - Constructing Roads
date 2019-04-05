@@ -1,0 +1,63 @@
+#include<iostream>
+#include<cstdio>
+#include<cstring>
+#include<algorithm>
+#define LL long long
+using namespace std;
+
+const int Max = 110;
+const LL Maxn = 110*110;
+int fa[Max];
+struct Edge {
+	int u, v, w;
+}edge[Maxn];
+bool cmp(Edge a,Edge b) {
+	return a.w < b.w ;
+}
+
+int findd(int h){
+    if (fa[h] != h)
+        return fa[h] = findd(fa[h]) ;
+    return h ;
+}//并查集判断是否联通
+int main() {
+	LL N;//N表示村庄数目
+	cin >> N;
+		LL top=0;
+		for (LL i = 1; i <= N; i++)
+			fa[i] = i;//初始化村庄
+        LL temp,m;
+		for(LL i=1;i<=N;i++){
+            for(LL j=1;j<=N;j++){
+                scanf("%d",&temp);
+                edge[top].u=i;
+                edge[top].v=j;
+                edge[top].w=temp;
+                top++;
+            }
+		}
+		long long sum = 0;
+        LL Q,a,b;
+        cin>>Q;
+        while(Q--){
+            cin>>a>>b;
+           LL faa = findd(a);
+			LL fb = findd(b);
+			if (faa != fb)
+				fa[faa] = fb;
+        }
+
+		sort(edge, edge +top, cmp);//将所有路排序
+
+		for (LL i = 1; i <= top; i++) {//如果不连通 就修路 否则不修路
+			LL fu = findd(edge[i].u);
+			LL fv = findd(edge[i].v);
+			if (fu != fv) {
+				fa[fu] = fv;
+				sum += edge[i].w;
+			}
+		}
+		printf("%lld\n", sum);
+
+	return 0;
+}
