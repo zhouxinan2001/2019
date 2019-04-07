@@ -1,0 +1,31 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+ll n,temp=0,sum=0;;
+ll a[3e5+10];
+int main(){
+cin>>n;
+for(ll i=0;i<n;i++)
+    scanf("%lld",&a[i]);
+for(ll i=0;i<n;i++){
+    if(temp>0){
+       if(temp>=a[i]/2){
+        sum+=a[i]/2;
+        temp-=a[i]/2;
+        temp+=a[i]%2;
+       }
+       else{
+        sum+=temp;
+        a[i]-=temp*2;
+        sum+=a[i]/3;
+        temp=a[i]%3;
+       }
+    }
+    else{
+        sum+=a[i]/3;
+        temp+=a[i]%3;
+    }
+    }
+    cout<<sum<<endl;
+return 0;
+}
