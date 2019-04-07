@@ -1,0 +1,42 @@
+#include<bits/stdc++.h>
+#define LL long long
+using namespace std;
+const int MAXN=510;
+int a,b;
+int numa[MAXN][MAXN];
+int numb[MAXN][MAXN];
+bool cheak(){
+    //查找每一行
+ int cnt=0;
+ for(int i=0;i<a;i++){
+    cnt=0;
+   for(int j=0;j<b;j++){
+    if(numa[i][j]!=numb[i][j])
+    cnt++;
+   }
+ if(cnt%2)return 0;
+ }
+  for(int i=0;i<b;i++){
+    cnt=0;
+   for(int j=0;j<a;j++){
+    if(numa[j][i]!=numb[j][i])
+    cnt++;
+   }
+ if(cnt%2)return 0;
+ }
+ return 1;
+}
+
+int main(){
+cin>>a>>b;
+for(int i=0;i<a;i++)
+   for(int j=0;j<b;j++)
+    scanf("%d",&numa[i][j]);
+for(int i=0;i<a;i++)
+   for(int j=0;j<b;j++)
+    scanf("%d",&numb[i][j]);
+if(cheak())printf("Yes\n");
+else printf("No\n");
+
+return 0;
+}
