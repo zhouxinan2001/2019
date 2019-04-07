@@ -1,0 +1,32 @@
+#include<bits/stdc++.h>
+#define LL long long
+using namespace std;
+
+const int MAXN = 1010 ;
+LL sorted[MAXN] ;//已经排序好的数
+bool cmp(LL a,LL b){
+return a>b;
+}
+
+int main(){
+  LL n,h;
+  cin>>n>>h;
+  LL flag=0;
+  for (LL i = 1 ; i <= n ; ++i){
+    scanf ("%lld" , &sorted[i]) ;//输入数组
+    }
+   for(LL i=1;i<=n;i++){
+    sort(sorted+1,sorted+1+i,cmp);
+    LL le=h;
+    for(LL j=1;j<=i;j++){
+        if(j%2)le-=sorted[j];
+    }
+    if(le<0){
+        cout<<i-1;
+        flag=1;
+        break;
+    }
+   }
+if(!flag)cout<<n;
+return 0;
+}
