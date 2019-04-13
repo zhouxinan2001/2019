@@ -1,0 +1,33 @@
+#include<iostream>
+#include<cstdio>
+#define LL long long
+using namespace std;
+const int maxn=1000005;
+LL max(LL a,LL b){
+	return a>b?a:b;
+}
+LL n;
+LL a[maxn],h[maxn];
+int main(){
+cin>>n;
+for(LL i=1;i<=n;i++){
+    scanf("%lld",&a[i]);
+    a[i]+=a[i-1];
+}
+for(LL i=1;i<=n;i++){
+    scanf("%lld",&h[i]);
+}
+LL ans=-1;
+for(LL i=1;i<=n;i++){
+    LL j,k,tempp=0;
+    for(j=i;j<=n;j++){
+        if(h[j]<h[i])break;
+    }
+    for(k=i;k>0;k--){
+    if(h[k]<h[i])break;
+    }
+    ans=max(ans,(a[j-1]-a[k])*h[i]);
+}
+cout<<ans<<endl;
+return 0;
+}
