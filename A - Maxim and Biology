@@ -1,0 +1,23 @@
+#include<bits/stdc++.h>
+#define LL long long
+using namespace std;
+const int inf=0x3f3f3f3f;
+LL n;
+string s;
+int main(){
+LL minn=inf;
+LL now=0;
+cin>>n;
+cin>>s;
+for(LL i=0;i<n-3;i++){
+    now=0;
+    now+=min(abs(s[i]-'A'),abs(26-abs(s[i]-'A')));
+    now+=min(abs(s[i+1]-'C'),abs(26-abs(s[i+1]-'C')));
+    now+=min(abs(s[i+2]-'T'),abs(26-abs(s[i+2]-'T')));
+    now+=min(abs(s[i+3]-'G'),abs(26-abs(s[i+3]-'G')));
+    if(now<=minn)minn=now;
+}
+cout<<minn<<endl;
+
+return 0;
+}
