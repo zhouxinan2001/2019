@@ -1,0 +1,19 @@
+#include<bits/stdc++.h>
+#define LL long long
+using namespace std;
+LL k,n,i;
+int main(){
+cin>>k;
+while(k--){
+    cin>>n;
+    LL i;
+    for(i=1;i<=n;i++)
+        if(i*(i+1)/2>=n)
+            break;
+    n-=i*(i-1)/2;
+       n--;
+       n%=26;
+        char c='a'+n;
+         cout<<c<<endl;}
+return 0;
+}
