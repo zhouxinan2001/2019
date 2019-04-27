@@ -1,0 +1,57 @@
+#include<bits/stdc++.h>
+#define LL long long
+using namespace std;
+const int maxn=1e5+10;
+LL t,n,m;
+LL temp[maxn];
+LL times[maxn];
+LL gcd(LL a,LL b){
+   LL r;
+   while(b>0){
+      r=a%b;
+      a=b;
+      b=r;
+   }
+   return a;
+}
+int main(){
+cin>>t;
+while(t--){
+    LL first,maxx=0;
+    memset(times,0,sizeof(times));
+    cin>>n>>m;
+    for(LL i=1;i<=m;++i)
+        scanf("%lld",&temp[i]);
+    sort(temp,temp+m+1);
+    for(LL i=1;i<=m;++i){
+        if(i!=1){
+            LL now=temp[i]-temp[i-1];
+            if(now!=1){
+               times[now]++;
+               if(maxx<now)maxx=now;
+            }
+        }
+        if(i==m){
+            LL now=n-temp[i]+temp[1];
+           //cout<<now<<endl;
+            if(now!=1){
+            times[now]++;
+            if(maxx<now)maxx=now;
+            }
+        }
+    }
+    
+    for(LL i=maxx-1;i>0;i--){
+        times[i]+=times[i+1];
+    }
+    times[1]=m;
+    for(LL i=1;i<=n;++i){
+       if(!times[i])printf("0\n");
+       else{
+          LL g=gcd(times[i],n);
+          printf("%lld/%lld\n",times[i]/g,n/g);
+        }
+    }
+}
+return 0;
+}
