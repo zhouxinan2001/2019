@@ -1,0 +1,30 @@
+#include<bits/stdc++.h>
+#define LL long long
+using namespace std;
+struct Node{
+int a,b,x,y;
+};
+vector<Node> mapp;
+int n,aa,bb,xx,yy;
+int tx,ty;
+int main(){
+cin>>n;
+
+for(int i=1;i<=n;++i){
+    scanf("%d %d %d %d",&aa,&bb,&xx,&yy);
+    mapp.push_back({aa,bb,xx,yy});
+}
+
+cin>>tx>>ty;
+
+for(int i=n-1;i>=0;i--){
+        //cout<<i<<" ";
+    if(tx>=mapp[i].a&&tx<mapp[i].a+mapp[i].x&&ty>=mapp[i].b&&ty<mapp[i].b+mapp[i].y){
+        cout<<i+1<<endl;
+        return 0;
+    }
+}
+cout<<"-1"<<endl;
+
+return 0;
+}
