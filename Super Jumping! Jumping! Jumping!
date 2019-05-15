@@ -1,0 +1,36 @@
+#include<bits/stdc++.h>
+#define LL long long
+using namespace std;
+const int maxn=1005;
+LL n;
+LL num[maxn];
+LL dp[maxn];//dp[i]代表前i个所能取得最大值
+int main(){
+while(cin>>n){
+ if(n==0)break;
+ for(LL i=1;i<=n;++i){
+    scanf("%lld",&num[i]);
+ }
+ dp[0]=0;
+ num[0]=-1;
+ LL maxx=0;
+ for(LL i=1;i<=n;i++){
+//查找合适的
+       int pos,maxp=0;
+       dp[i]=num[i];
+       for(LL j=0;j<i;j++){
+        if(dp[j]>maxp&&num[j]<num[i]){
+            pos=j;
+            maxp=dp[j];
+        }
+       }
+       dp[i]+=maxp;
+
+    if(dp[i]>maxx){
+        maxx=dp[i];
+    }
+ }
+ cout<<maxx<<endl;
+}
+return 0;
+}
