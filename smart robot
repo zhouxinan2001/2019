@@ -1,0 +1,37 @@
+#include<bits/stdc++.h>
+#define LL long long
+using namespace std;
+int num[55][55];
+int vis[1000005]={0};
+int dir[4][2]={{-1,0},{1,0},{0,1},{0,-1}};
+int n;
+void dfs(int x,int y,int cnt,int now){
+   vis[now]=1;
+   if(cnt>=6)return;
+   for(int i=0;i<4;i++){
+    int xx=x+dir[i][0];
+    int yy=y+dir[i][1];
+    int nn=num[xx][yy]+now*10;
+    if(xx>=0&&xx<n&&yy>=0&&yy<n){
+        dfs(xx,yy,cnt+1,nn);
+    }
+   }
+}
+int main(){
+cin>>n;
+memset(vis,0,sizeof(vis));
+for(int i=0;i<n;i++)
+    for(int j=0;j<n;j++)
+      scanf("%d",&num[i][j]);
+
+for(int i=0;i<n;i++)
+   for(int j=0;j<n;j++)
+      dfs(i,j,1,num[i][j]);
+
+for(int i=0;;i++){
+    if(!vis[i]){
+        cout<<i<<endl;
+        return 0;
+    }
+}
+}
