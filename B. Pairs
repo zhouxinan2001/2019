@@ -1,0 +1,77 @@
+#include<bits/stdc++.h>
+#define LL long long
+using namespace std;
+const LL maxn=400005;
+LL num[maxn][2];
+LL n,m;
+LL a,b,c,d;
+int main(){
+cin>>n>>m;
+for(LL i=0;i<m;i++){
+    scanf("%I64d %I64d",&num[i][0],&num[i][1]);
+}
+a=num[0][0],b=num[0][1];
+LL flag=0;
+for(LL i=1;i<m;i++){
+    if(num[i][0]!=a&&num[i][1]!=a&&num[i][0]!=b&&num[i][1]!=b){
+        flag=0;
+        c=num[i][0],d=num[i][1];
+        break;
+    }
+    else flag=1;
+}
+if(flag){
+    printf("YES\n");
+    return 0;
+}
+//cout<<a<<b<<c<<d<<endl;
+for(LL i=0;i<m;i++){//1
+        if(num[i][0]!=a&&num[i][1]!=a&&num[i][0]!=c&&num[i][1]!=c){
+        flag=0;
+        break;
+    }
+    else flag=1;
+}
+if(flag){
+    printf("YES\n");
+    return 0;
+}
+for(LL i=0;i<m;i++){//2
+        if(num[i][0]!=a&&num[i][1]!=a&&num[i][0]!=d&&num[i][1]!=d){
+        flag=0;
+        //cout<<i<<endl;
+        break;
+    }
+    else flag=1;
+}
+if(flag){
+    printf("YES\n");
+    return 0;
+}
+for(LL i=0;i<m;i++){//3
+        if(num[i][0]!=b&&num[i][1]!=b&&num[i][0]!=c&&num[i][1]!=c){
+        flag=0;
+        //cout<<i<<endl;
+        break;
+    }
+    else flag=1;
+}
+if(flag){
+    printf("YES\n");
+    return 0;
+}
+
+for(LL i=0;i<m;i++){//4
+        if(num[i][0]!=b&&num[i][1]!=b&&num[i][0]!=d&&num[i][1]!=d){
+        flag=0;
+        break;
+    }
+    else flag=1;
+}
+if(flag){
+    printf("YES\n");
+    return 0;
+}
+printf("NO\n");
+return 0;
+}
