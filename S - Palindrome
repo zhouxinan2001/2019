@@ -1,0 +1,48 @@
+#include<iostream>
+#include<cstdio>
+#include<algorithm>
+#include<cstring>
+#define LL long long
+#define MAXN 1000010
+using namespace std;
+char s[MAXN],str[MAXN<<1];
+int p[MAXN<<1];
+int Case=0;
+inline int Max(int a, int b) {
+  static int mask;
+  mask = (b - a) >> 31;
+  return (a & mask) | (b & ~mask);
+}
+inline int Min(int a, int b) {
+  static int mask;
+  mask = (a - b) >> 31;
+  return (a & mask) | (b & ~mask);
+}
+
+int main() {
+  while(cin>>s){
+    Case++;
+    if(!strcmp(s,"END"))break;
+    int l=strlen(s),len=2,id=0,mx=0,ans=1;
+    str[0]='$',str[1]='#';
+    for(int i=0;i<l;i++){
+        str[len++]=s[i];
+        str[len++]='#';
+    }
+    str[len]='\0';
+
+    for(int i=0;i<len;i++){
+        if(mx>i) p[i]=Min(p[2*id-i],mx-i);
+        else p[i]=1;
+
+        for(;str[i-p[i]]==str[i+p[i]];p[i]++)
+        if(i+p[i]>mx){
+            id=i;
+            mx=i+p[i];
+        }
+        ans=Max(ans,p[i]);
+    }
+    printf("Case %d: %d\n", Case, ans - 1);
+  }
+  return 0;
+}
