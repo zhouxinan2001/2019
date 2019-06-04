@@ -1,0 +1,53 @@
+#include<bits/stdc++.h>
+#define LL long long
+using namespace std;
+const int maxn=100005;
+
+int s[maxn],str[maxn<<1];
+int p[maxn<<1],t,n;
+inline int Max(int a, int b) {
+  static int mask;
+  mask = (b - a) >> 31;
+  return (a & mask) | (b & ~mask);
+}
+inline int Min(int a, int b) {
+  static int mask;
+  mask = (a - b) >> 31;
+  return (a & mask) | (b & ~mask);
+}
+
+int main(){
+cin>>t;
+while(t--){
+    cin>>n;
+    for(int i=0;i<n;i++){
+        scanf("%d",&s[i]);
+       // if(s[i]>minn)minn=s[i]+1;
+    }
+    str[0]=-2,str[1]=-1;
+    int mx=0,id=0,len=2,ans=0,minn;
+
+    for(int i=0;i<n;i++){
+        str[len++]=s[i];
+        str[len++]=-1;
+    }
+
+    for(int i=0;i<len;i++){
+        if(mx>i)p[i]=Min(p[id*2-i],mx-i);
+        else p[i]=1;
+
+        if(str[i]>0)minn=str[i];
+        else minn=str[i+1];
+
+        for(;str[i-p[i]]==str[i+p[i]]&&str[i-p[i]]<=minn;p[i]++){
+                if(str[i+p[i]]>0) minn=str[i+p[i]];
+        if (i + p[i] > mx) {
+          mx = i + p[i];
+          id = i;
+         }
+        ans = Max(p[i], ans);
+        }
+    }
+    printf("%d\n",ans);
+}
+}
