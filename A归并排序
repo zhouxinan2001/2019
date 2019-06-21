@@ -1,0 +1,33 @@
+#include<iostream>
+const int MAXN=1000;
+
+int a[MAXN];
+int t[MAXN];//按从大到小排序 
+void u(int L,int R)
+{
+    int l=L,r=R,mid=(l+r)/2,m=mid+1;
+    int cnt=0;
+    while(l<=mid&&m<=r){
+      if(a[l]>a[m])t[cnt++]=a[l++];
+      else t[cnt++]=a[m++];
+    }
+    while(l<=mid)t[cnt++]=a[l++];
+    while(m<r)t[cnt++]=a[m++];
+    cnt=0;
+    for(int i=L;i<=R;i++)
+      a[i]=t[cnt++];
+}
+
+void s(int l,int r)
+{
+    if(l==r)return;
+    int mid=(l+r)>>1;
+    s(l,mid);
+    s(mid+1,r);
+    u(l,r);
+}
+
+int main()
+{
+	return 0;
+ } 
