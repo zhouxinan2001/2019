@@ -1,0 +1,33 @@
+#include<iostream>
+#include<string>
+#include<cstdio>
+#define LL long long
+using namespace std;
+string s, s1;
+int main() {
+	cin >> s;
+	s1 = s;
+	s += "0000";
+	int len = s.size() - 1;
+	int len1 = s1.size() - 1;
+	int j = 0;
+	//cout<<len<<' '<<len1<<endl;
+	for (int i = len; i >= 0; i--) {
+		//cout << s[i] << ' ';
+		if (i >= 4) {
+			s[i] += s1[len1--]-'0' + j;
+			//cout << j << ' ' << s[i] << endl;
+		}
+		else
+			s[i] += j;
+		if (s[i] - '0' > 1) {
+			j = (s[i] - '0') / 2;
+			s[i] = '0' + (s[i] - '0') % 2;
+		}
+		else j = 0;
+	}
+	if (j)cout << j;
+	cout << s << endl;
+	//cout << endl;
+	return 0;
+}
