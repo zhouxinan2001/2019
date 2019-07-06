@@ -1,0 +1,40 @@
+#include<iostream>
+#define LL long long
+using namespace std;
+
+int main()
+{
+    LL n,m;
+    scanf("%lld%lld",&m,&n);
+
+    LL *wi,*vi;
+    wi=(LL *)malloc(sizeof(LL)*(n+1));
+    vi=(LL *)malloc(sizeof(LL)*(n+1));
+
+    LL i;
+    for(i=1;i<=n;i++){
+            scanf("%lld",&wi[i]);
+            vi[i]=wi[i];
+    }
+
+
+    LL *dp;
+    dp=(LL *)malloc(sizeof(LL)*(m+1));    //滚动数组
+    for(i=0;i<=m;i++)
+        dp[i]=0;
+
+    LL j;
+    for(i=0;i<=n;i++)
+        for(j=m;j>=wi[i];j--)    //容量从大到小
+        {
+            if(i==0)
+            {
+                dp[j]=0;
+                continue;
+            }
+            dp[j]=max(dp[j],dp[j-wi[i]]+vi[i]);
+        }
+
+    printf("%lld",dp[m]);
+    return 0;
+}
