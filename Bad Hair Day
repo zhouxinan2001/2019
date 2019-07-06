@@ -1,0 +1,40 @@
+#include<iostream>
+#define LL long long
+using namespace std;
+const LL maxn=80005;
+LL n;
+LL h[maxn],dp[maxn];
+int main(){
+    cin>>n;
+    for(LL i=1;i<=n;i++)
+        scanf("%lld",&h[i]);
+    LL flag=0;
+    LL ans=0,maxx=0;
+    for(LL i=n;i>0;i--){
+        if(h[i]>maxx){
+            dp[i]=n-i;
+            ans+=n-i;
+            maxx=h[i];
+            continue;
+        }
+        for(LL j=i+1;j<=n;j++){
+            if(h[j]>=h[i]){
+                dp[i]=j-i-1;
+                ans+=j-i-1;
+                flag=1;
+                break;
+            }
+            else{
+                j+=dp[j];
+                //cout<<j;
+            }
+        }
+         if(!flag){
+                dp[i]=n-i;
+                ans+=n-i;
+         }
+         //cout<<i<<' '<<ans<<' '<<now<<endl;
+    }
+    cout<<ans<<endl;
+    return 0;
+}
