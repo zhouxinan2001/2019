@@ -1,0 +1,32 @@
+#include<iostream>
+#define LL long long
+using namespace std;
+int r,c;
+LL ans=0;
+int mpt[105][105];
+LL dp[105][105]={0};
+LL Max(LL a,LL b,LL c){
+    int t=a>b?a:b;
+    return t>c?t:c;
+}
+int main(){
+    cin>>r>>c;
+    for(int i=1;i<=r;i++)
+        for(int j=1;j<=c;j++){
+            scanf("%d",&mpt[i][j]);
+            dp[i][j]=mpt[i][j];
+        }
+    for(int i=2;i<=r;i++)dp[i][1]=0;
+
+    for(int j=2;j<=c;j++){
+        for(int i=1;i<=r;i++){
+            if(i>j)dp[i][j]=0;
+            else dp[i][j]+=Max(dp[i-1][j-1],dp[i][j-1],dp[i+1][j-1]);
+        }
+    }
+
+    cout<<dp[r][c];
+
+
+    return 0;
+}
