@@ -1,0 +1,47 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long LL;
+const int INF = 0x3f3f3f3f;
+const int maxn = 6010;
+vector<int> G[maxn];
+//G[i]代表i的子节点
+int father[maxn], dp[maxn][2];
+//dp[i][0]:不邀请i员工其子树达到的最大快乐值 dp[i][1]则邀请
+//father[i]记录每个节点的父节点
+void dfs(int root){
+    for(int i=0; i<G[root].size(); i++){
+        dfs(G[root][i]);
+    }//向下搜索
+    for(int i=0; i<G[root].size(); i++){
+        dp[root][0] += max(dp[G[root][i]][0], dp[G[root][i]][1]);
+        //如果不被邀请
+        dp[root][1] += dp[G[root][i]][0];
+        //如果被邀请
+    }
+}
+
+int main()
+{
+    memset(dp, 0,sizeof(dp));
+    memset(father, -1,sizeof(father));
+    //初始化
+    int n;
+    scanf("%d", &n);
+    for(int i=1; i<=n; i++){
+        scanf("%d", &dp[i][1]);
+        G[i].clear();
+    }
+    //输入
+    int fa, so;
+    while(scanf("%d%d", &so, &fa) && fa && so){
+        G[fa].push_back(so);
+        father[so] = fa;
+    }
+    int root = 1;
+    while(father[root] != -1)
+        root=father[root];
+    //root代表根结点
+    dfs(root);
+    printf("%d\n", max(dp[root][0], dp[root][1]));
+    return 0;
+}
