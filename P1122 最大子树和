@@ -1,0 +1,44 @@
+#include<bits/stdc++.h>
+#define LL long long
+using namespace std;
+const int maxn=16005;
+LL n,a,b;
+vector<int>G[maxn];
+LL dp[maxn][2],fa[maxn];
+inline LL max(LL a,LL b){
+    return a>b?a:b;
+}
+void dfs(int root){
+               // cout<<root<<' '<<dp[root][1]<<endl;
+    for(int i=0; i<G[root].size(); i++){
+        dfs(G[root][i]);
+    }//向下搜索
+    for(int i=0;i<G[root].size();i++){
+
+        dp[root][1]+=max(dp[G[root][i]][1],0);
+    }
+            //cout<<' '<<root<<' '<<dp[root][1]<<endl;
+}
+int main(){
+    memset(dp,0,sizeof(dp));
+    memset(fa,-1,sizeof(fa));
+    cin>>n;
+    for(int i=1;i<=n;i++){
+        scanf("%lld",&dp[i][1]);
+
+        G[i].clear();
+    }
+    for(int i=1;i<n;i++){
+        scanf("%d %d",&a,&b);
+        fa[a]=b;
+        G[b].push_back(a);
+    }
+    int root = 1;
+    while(fa[root] != -1)
+        root=fa[root];
+    //cout<<root<<endl;
+    //root代表根结点
+    dfs(root);
+    printf("%d\n", dp[root][1]);
+    return 0;
+}
