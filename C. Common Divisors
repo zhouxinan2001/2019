@@ -1,0 +1,45 @@
+#include<bits/stdc++.h>
+#define LL long long
+using namespace std;
+const int maxn=4e5+5;
+LL gcd(LL a,LL b){
+    LL r;
+    while(b>0){
+    r=a%b;
+    a=b;
+    b=r;
+    }
+    return a;
+}
+LL get_num(LL n){
+    LL tot=1;
+    for(LL i=2;i*i<=n;++i){
+        if(n%i==0){
+            LL x=0;
+            while(n%i==0){
+                n/=i;
+                x++;
+            }
+            tot*=(x+1);
+        }
+    }
+    if(n>1)tot*=2;
+    return tot;
+}
+int n;
+LL arr[maxn];
+int main(){
+    cin>>n;
+    for(int i=1;i<=n;i++)
+        scanf("%lld",&arr[i]);
+    LL mcd=arr[1];
+    for(int i=2;i<=n;i++){
+        mcd=gcd(mcd,arr[i]);
+        if(mcd==1){
+            printf("1\n");
+            return 0;
+        }
+    }
+    cout<<get_num(mcd)<<endl;
+    return 0;
+}
