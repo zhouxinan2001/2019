@@ -1,0 +1,57 @@
+#include<bits/stdc++.h>
+#define LL long long
+using namespace std;
+
+string n;
+int vis[15];
+LL k,  cnt = 0;
+string ans="1";
+vector<int>fa[15];
+void count_num(LL x) {
+    if (vis[x])return;
+    		vis[x] = 1;
+	if (fa[x].empty()) return;//如果为空
+	for (LL i = 0; i < fa[x].size(); i++)
+		count_num(fa[x][i]);
+}
+string Multiply(string s,LL x)  //大数乘以整形数
+{
+    reverse(s.begin(),s.end());
+    LL cmp=0;
+    for(LL i=0;i<s.size();i++)
+    {
+        cmp=(s[i]-'0')*x+cmp;
+        s[i]=(cmp%10+'0');
+        cmp/=10;
+    }
+    while(cmp)
+    {
+        s+=(cmp%10+'0');
+        cmp/=10;
+    }
+    reverse(s.begin(),s.end());
+    return s;
+}
+int main() {
+	LL a, b;
+	cin >> n >> k;
+	for (LL i = 0; i < k; i++) {
+		scanf("%d %d", &a, &b);
+		fa[a].push_back(b);
+	}
+	LL len = n.size();
+	for (LL i = 0; i < len; i++) {
+		memset(vis, 0, sizeof(vis));
+		cnt = 0;
+		LL temp = n[i] - '0';
+		count_num(temp);
+		for(int i=0;i<10;i++){
+            cnt+=vis[i];
+		}
+		//cout<<cnt<<' '<<ans<<endl;
+		//if(!cnt)
+		ans = Multiply(ans,cnt);
+	}
+	cout << ans << endl;
+	return 0;
+}
