@@ -1,0 +1,42 @@
+#include<iostream>
+#include<stdio.h>
+#include<cstring>
+#define LL long long
+using namespace std;
+char s[1005][25];
+struct node{
+    int tot;//tot记录前缀出现的次数
+    int child[26];//储存子节点，最多为26个；
+}tree[300001];
+int sz=0;
+void _insert(char ch[]){//插入
+    int u=0;
+    int h=strlen(ch+1);
+    for(int i=1;i<=h;i++){
+        int pos=ch[i]-'a';//记录当前字母
+        if(tree[u].child[pos]==0)//如果没有出现过 就添加
+            tree[u].child[pos]=++sz;
+        u=tree[u].child[pos];//将子节点作为母结点，往下走；
+        tree[u].tot++;
+    }
+}
+void _find(char t[]){//统计
+   int u=0,h=strlen(t+1);
+   for(int i=1;i<=h;i++){
+       if(tree[u].tot==1)break;
+       int pos=t[i]-'a';
+       u=tree[u].child[pos];
+       printf("%c",t[i]);
+   }
+   return ;
+}
+int main(){
+    int tot=0;
+    while(scanf("%s",s[tot++]+1)!=EOF)_insert(s[tot-1]);
+    for(int i=0;i<tot;i++){
+        printf("%s ",s[i]+1);
+        _find(s[i]);
+        cout<<endl;
+    }
+    return 0;
+}
